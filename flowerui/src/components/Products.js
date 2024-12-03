@@ -11,12 +11,16 @@ export default function Products(){
     const addToCart = (flower, quantity) => {
         const existingItem = cartItems.find(item => item.id === flower.id);
         if (existingItem) {
-            existingItem.qty += quantity;
-            setCartItems([...cartItems]);
+            setCartItems(cartItems.map(item =>
+                item.id === flower.id
+                    ? { ...item, qty: item.qty + quantity }
+                    : item
+            ));
         } else {
             setCartItems([...cartItems, { ...flower, qty: quantity }]);
         }
     };
+    
    
     return(
         <>
